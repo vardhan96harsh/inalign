@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: inalign-backend
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: MAIL_USER
+        value: your-email@gmail.com
+      - key: MAIL_PASS
+        value: your-app-password
+      - key: TO_EMAIL
+        value: your-recipient@example.com
