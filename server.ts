@@ -21,3 +21,6 @@ app.post("/api/book-demo", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+app.get("/", (req, res) => {
+  res.send("📬 Email API running.");
+});
