@@ -10,7 +10,6 @@ const transporter = nodemailer.createTransport({
     pass: process.env.MAIL_PASS,
   },
 });
-
 export const sendMail = async (data: {
   name: string;
   email: string;
@@ -19,7 +18,6 @@ export const sendMail = async (data: {
 }) => {
   const htmlContent = `
     <div style="font-family: Arial; padding: 20px;">
-      <img src="https://yourdomain.com/logo.png" alt="Logo" width="100" />
       <h2>New Demo Request from ${data.name}</h2>
       <p><strong>Email:</strong> ${data.email}</p>
       <p><strong>Company:</strong> ${data.company}</p>
@@ -28,10 +26,17 @@ export const sendMail = async (data: {
     </div>
   `;
 
-  await transporter.sendMail({
-    from: `"Inalign Website" <${process.env.MAIL_USER}>`,
-    to: process.env.TO_EMAIL,
-    subject: `Demo Request from ${data.name}`,
-    html: htmlContent,
-  });
+  try {
+    console.log("Sending email to:", process.env.TO_EMAIL);
+    console.log("Email data:", data);
+    await transporter.sendMail({
+      from: `"Inalign Website" <${process.env.MAIL_USER}>`,
+      to: process.env.TO_EMAIL,
+      subject: `Demo Request from ${data.name}`,
+      html: htmlContent,
+    });
+  } catch (error) {
+    console.error("❌ Mail send failed:", error);
+    throw error;
+  }
 };
